@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2brotherAnime | Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+        }
+
+        /* ===== Header ===== */
+        header {
+            background: #000;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #ff2e63;
+            margin: 0;
+        }
+
+        nav a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* ===== Cart Layout ===== */
+        .cart-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .cart-container h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 34px;
+            color: #ff2e63;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .cart-item img {
+            width: 120px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-details {
+            flex: 1;
+        }
+
+        .cart-details h4 {
+            margin: 0 0 5px;
+            font-size: 20px;
+        }
+
+        .cart-details p {
+            margin: 0;
+            color: #aaa;
+        }
+
+        .cart-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .cart-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-quantity button {
+            background: #ff2e63;
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .cart-quantity span {
+            font-size: 16px;
+        }
+
+        .remove {
+            background: transparent;
+            border: none;
+            color: #ff2e63;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ===== Summary ===== */
+        .summary {
+            margin-top: 40px;
+            background: #1a1a1a;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: right;
+        }
+
+        .summary p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .summary .total {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #ff2e63;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #ff5980;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .summary {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>2brotherAnime</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html">Cart</a>
+    </nav>
+</header>
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+
+    <!-- CART ITEM -->
+    <div id="cart-id" class="cart-item">
+        <img src="images/products/baka-trio-hoodie.jpg" alt="Product">
+        <div class="cart-details">
+            <h4>Baka Trio Oversize Drop-Shoulder</h4>
+            <p>Size: L</p>
+        </div>
+
+        <div class="cart-price">$79.99</div>
+
+        <div class="cart-quantity">
+            <button>-</button>
+            <span>1</span>
+            <button>+</button>
+        </div>
+
+        <button class="remove">Remove</button>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+        <p>Subtotal: $79.99</p>
+        <p>Shipping: Free</p>
+        <p class="total">Total: $79.99</p>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+</div>
+
+<script>
+const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+const container = document.getElementById("cart-items");
+
+if (cartItems.length === 0) {
+    container.innerHTML = "<p>Your cart is empty</p>";
+} else {
+    cartItems.forEach(item => {
+        container.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-details">
+                    <h4>${item.name}</h4>
+                    <p>Size: ${item.size}</p>
+                    <p>Qty: ${item.quantity}</p>
+                </div>
+                <div class="cart-price">$${(item.price * item.quantity).toFixed(2)}</div>
+            </div>
+        `;
+    });
+}
+</script>
+
+
+</body>
+</html>

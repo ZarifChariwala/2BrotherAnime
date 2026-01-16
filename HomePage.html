@@ -174,11 +174,28 @@
             <p>$89.99</p>
             <button>Add to Cart</button>
         </div>
-        <div class="card">
-            <img src="Product Image\hoodie\mjpcz_512.jpg" alt="Anime Jacket">
+        <!-- <div class="card">
+            <img src="Product Image\hoodie\Luffy.webp" alt="Anime Jacket">
             <h4>Attack on Titan Jacket</h4>
             <p>$89.99</p>
-            <button>Add to Cart</button>
+            <button onclick="addToCart('Attack on Titan Jacket', 89.99)">Add to Cart</button>
+        </div> -->
+        <div class="card"
+            id="a1"
+            data-name="Baka Trio Oversize Drop-Shoulder"
+            data-price="79.99"
+            data-image="Product Image\hoodie\Luffy.webp">
+
+                <img id="id" src="Product Image\hoodie\Luffy.webp" alt="Baka Trio Oversize Drop-Shoulder Hoodie">
+                <h4>Baka Trio Oversize Drop-Shoulder</h4>
+                <p>$79.99</p>
+                <select class="size">
+                    <option>S</option>
+                    <option>M</option>
+                    <option selected>L</option>
+                    <option>XL</option>
+                </select>
+                <button onclick="addToCart()">Add to Cart</button>
         </div>
     </div>
 </section>
@@ -186,6 +203,36 @@
 <footer>
     © 2026 2brotherAnime. All rights reserved.
 </footer>
+
+
+<script>
+function addToCart(id) {
+    const card = document.getElementById(id);
+
+    const product = {
+        name: card.dataset.name,
+        price: Number(card.dataset.price),
+        image: card.dataset.image,
+        size: card.querySelector(".size").value,
+        quantity: 1
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existing = cart.find(
+        item => item.name === product.name && item.size === product.size
+    );
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart!");
+}
+</script>
 
 </body>
 </html>
